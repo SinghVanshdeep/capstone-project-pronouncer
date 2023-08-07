@@ -1,24 +1,22 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
-import dotenv from "dotenv";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import cors from "cors";
+import "dotenv/config";
+
 
 const app = express();
 const port = 3000;
-dotenv.config({path: '../.env'});
+
 
 const API_URL = "http://api.voicerss.org/";
 const KEY = process.env.API_KEY;
 
-app.use(cors());
+
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("../frontend/public"));
-app.set("views", "../frontend/views");
+app.use(express.static("public"));
+
 app.set("view engine", "ejs");
-app.use(cors())
+
 
 
 app.get("/", async function(req, res){
