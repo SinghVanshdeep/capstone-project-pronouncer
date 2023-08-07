@@ -38,6 +38,6 @@ app.post("/", async function(req, res){
     }
 });
 
-app.listen(port || process.env.PORT, function(){
+app.listen(process.env.PORT, function(){
     console.log(`Server started on port: ${port}`);
 })
