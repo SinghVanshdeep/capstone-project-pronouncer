@@ -1,20 +1,26 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
-import "dotenv/config";
-import * as fs from "fs";
+import dotenv from "dotenv";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 const port = 3000;
+dotenv.config({path: '../.env'});
+
 const API_URL = "http://api.voicerss.org/";
 const KEY = process.env.API_KEY;
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
+app.use(express.static("../frontend/public"));
+app.set("views", "../frontend/views");
+app.set("view engine", "ejs");
 
 
 app.get("/", async function(req, res){
     res.render("index.ejs", {content: null});
+
 })
 
 app.post("/", async function(req, res){
@@ -38,6 +44,6 @@ app.post("/", async function(req, res){
     }
 });
 
-app.listen(process.env.PORT, function(){
+app.listen(process.env.PORT || port, function(){
     console.log(`Server started on port: ${port}`);
 })
